@@ -7,13 +7,14 @@ class Directory():
     css=False
     def __init__(self, title):
         self.title=title
-        self.session={"email":None,"name":None,"notice":None}
+        self.session={"user_id":None,"email":None,"name":None,"notice":None}
+        self.somevalues=["email","name","notice","user_id"]
         self.path="./"
         self.html=""
         self.url=""
         self.redirect=False
     def logout(self):
-        for x in ["email","name","notice"]:
+        for x in self.somevalues:
             try:
                 self.session[x]=""
             except:
@@ -25,7 +26,7 @@ class Directory():
     def get_session(self):
         return self.session
     def set_other_session(self,s):
-        for x in ["email","name","notice"]:
+        for x in self.somevalues:
             try:
                 self.session[x]=s[x]
             except:
@@ -33,7 +34,7 @@ class Directory():
                 self.session[x]=""
         self.session["mysession"]=False
     def set_my_session(self,s):
-        for x in ["email","name","notice"]:
+        for x in self.somevalues:
             try:
                 self.session[x]=s[x]
             except:
@@ -49,7 +50,7 @@ class Directory():
                 self.session[x]=""
         self.session["mysession"]=True
     def set_session(self,s):
-        for x in ["email","name","notice"]:
+        for x in self.somevalues:
             try:
                 self.session[x]=s[x]
             except:
@@ -97,7 +98,7 @@ class Directory():
         print("session : : ",mysession)
         if not mysession["mysession"]:
             self.session["notice"]=""
-        if (not mysession or (not mysession["email"] and not mysession["name"])) and self.url not in ["/","/voirtoutcequejaiajoute"] and not self.redirect:
+        if (not mysession or (not mysession["user_id"] and not mysession["email"] and not mysession["name"])) and self.url not in ["/","/voirtoutcequejaiajoute"] and not self.redirect:
             print("ok not loged in")
             redi="/"
             self.redirect=redi

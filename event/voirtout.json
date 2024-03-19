@@ -1,0 +1,4 @@
+{"event":[
+	<%=render_collection(collection=params['event'], partial='event/_event.json', as_='event')%>
+
+]}

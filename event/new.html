@@ -1,5 +1,6 @@
-<h1>ecrire 1 breaking news</h1>
+<h1>ajouter 1 évènement</h1>
 <form action="/sauverevent" method="post">
+	<input type="hidden" name="user_id" value="<%=session["user_id"]%>"/>
 <div class="field">
 <label for="title">title</label>
 <textarea name="title" id="title"></textarea>

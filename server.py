@@ -18,6 +18,7 @@ import requests
 req = requests.Session()
 req.cookies["email"]=""
 req.cookies["name"]=""
+req.cookies["user_id"]=""
 req.cookies["notice"]=""
 from urllib.parse import urlencode
 class S(BaseHTTPRequestHandler):

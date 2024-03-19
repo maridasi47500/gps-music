@@ -1,0 +1,6 @@
+<%="," if paspremier else ""%>{
+	"title":"<%=event["title"]%>",
+	"lat":"<%=event["lat"]%>",
+	"lon":"<%=event["lon"]%>",
+	"pic":"/uploads/<%=event["pic"]%>"
+}

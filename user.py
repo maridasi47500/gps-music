@@ -33,9 +33,9 @@ class User(Model):
         print(dict(row))
         print(row)
         if row:
-            return {"notice":"vous êtes connecté","name": row["nomcomplet"],"email": row["otheremail"]}
+            return {"notice":"vous êtes connecté","name": row["nomcomplet"],"email": row["otheremail"],"user_id":row["id"]}
         else:
-            return {"notice":"","name":"","email": ""}
+            return {"notice":"","name":"","email": "","user_id":row["id"]}
     def getall(self):
         self.cur.execute("select *, 'user' as stuff from users")
         
@@ -87,7 +87,7 @@ class User(Model):
         print("my row id", myid)
         #print(arr, "my array")
         self.con.commit()
-        return {"notice": "vous avez été inscrit(e)","email": row["otheremail"],"name":row["nomcomplet"]}
+        return {"notice": "vous avez été inscrit(e)","email": row["otheremail"],"name":row["nomcomplet"],"user_id":row["id"]}
 
 
     def update(self,params):
@@ -113,4 +113,4 @@ class User(Model):
         #print(arr, "my array")
         self.cur.execute("select id,otheremail,nomcomplet from users where id = ?", (myid,))
         row=self.cur.fetchone()
-        return {"notice": "vos infos ont été modifiées","email": row["otheremail"],"name":row["nomcomplet"]}
+        return {"notice": "vos infos ont été modifiées","email": row["otheremail"],"name":row["nomcomplet"],"user_id":row["id"]}

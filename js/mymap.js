@@ -61,9 +61,9 @@ const LeafIcon = L.Icon.extend({
                                                                                                                                                                                                               initMap();
                                               if (window.location.pathname==="/"){
 						      $.ajax({
-							      url:"/voirtoutcequejaiajoute",
+							      url:"/voirtouscequejaiajoute",
 							      success: function(data){
-								      var latlng,marker,tout=data.tout,hey,mypopup,icon;
+								      var latlng,marker,tout=data.event,hey,mypopup,icon;
 								      for(var i=0;i<tout.length;i++){
 									      hey=tout[i];
                                                                               mypopup = L.popup();
@@ -74,9 +74,9 @@ const LeafIcon = L.Icon.extend({
 									      console.log(latlng);
 	                                                                      popup
 	                                                                          .setLatLng(latlng)
-	                                                                          .setContent("ça apparait sur la carte à " + latlng.lat+" "+latlng.lng)
+	                                                                          .setContent("c'est l'évènement " + latlng.lat+" "+latlng.lng + " : " +hey.title)
 	                                                                          .openOn(macarte);
-									      icon=new LeafIcon({iconUrl: "/mypic/"+hey.stuff+".png"});
+									      icon=new LeafIcon({iconUrl: hey.pic});
 	                                                                      mymarker = L.marker(latlng, {icon: icon}).bindPopup(popup).addTo(macarte)
 								      }
 							      }

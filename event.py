@@ -12,6 +12,8 @@ class Event(Model):
         id integer primary key autoincrement,
         lat text,
             lon text,
+             text,
+             user_id text,
             title text,
             pic text,
             date text
@@ -53,7 +55,7 @@ class Event(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-          self.cur.execute("insert into event (lat,lon,title,pic,date) values (:lat,:lon,:title,:pic,:date)",myhash)
+          self.cur.execute("insert into event (user_id,lat,lon,title,pic,date) values (:user_id,:lat,:lon,:title,:pic,:date)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:

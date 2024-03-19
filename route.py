@@ -2,6 +2,7 @@ from directory import Directory
 from fichier import Fichier
 from render_figure import RenderFigure
 from user import User
+from event import Event
 
 from mypic import Pic
 from javascript import Js
@@ -16,6 +17,7 @@ class Route():
         self.Program.set_path("./")
         self.mysession={"notice":None,"email":None,"name":None}
         self.dbUsers=User()
+        self.dbEvent=Event()
         self.render_figure=RenderFigure(self.Program)
         self.getparams=("id",)
     def set_my_session(self,x):
@@ -58,6 +60,12 @@ class Route():
           self.set_json("{\"redirect\":\"/\"}")
         print("session login",self.Program.get_session())
         return self.render_figure.render_json()
+    def voirtouscequejaiajoute(self,params={}):
+        self.render_figure.set_param("event",Event().getall())
+        return self.render_json("./event","voirtout.json")
+    def voirtousevent(self,params={}):
+        self.render_figure.set_param("event",Event().getall())
+        return self.render_figure.render_figure("event/voirtout.html")
     def voirevent(self,params={}):
         getparams=("id",)
         print("get param, action see my new",getparams)
@@ -67,13 +75,13 @@ class Route():
     def nouveauevent(self,search={}):
         return self.render_figure.render_figure("event/new.html")
     def sauverevent(self,params={}):
-        myparams=self.get_post_data()(params=("lat","lon","title","pic","date",))
+        myparams=self.get_post_data()(params=("user_id","lat","lon","title","pic","date",))
         event=self.dbEvent.create(myparams)
         if event["event_id"]:
           self.set_notice(event["notice"])
           self.set_json("{\"redirect\":\"/seemyevent/"+event["event_id"]+"\"}")
         else:
-          self.set_json("{\"redirect\":\"/new\"}")
+          self.set_json("{\"redirect\":\"/newevent\"}")
         return self.render_figure.render_json()
     def welcome(self,search):
         return self.render_figure.render_figure("welcome/index.html")
@@ -152,7 +160,9 @@ class Route():
             ROUTES={
                     "^/seemyevent/([0-9]+)$":self.voirevent,
                     "^/newevent$":self.nouveauevent,
-                    "^/saveevent$":self.sauverevent,
+                    "^/sauverevent$":self.sauverevent,
+                    "^/voirtouscequejaiajoute$":self.voirtouscequejaiajoute,
+                    "^/allevents$":self.voirtousevent,
                     '^/logmeout$':self.logout,
                     '^/save_user$':self.save_user,
                     '^/update_user$':self.update_user,
